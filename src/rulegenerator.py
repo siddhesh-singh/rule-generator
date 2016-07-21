@@ -77,6 +77,10 @@ def main(argv):
         print("Specify output location.")
         user_input_error = True
         
+    if gen_num is None:
+        print("Specify number of generations.")
+        user_input_error = True
+        
     if user_input_error:
         return
     
@@ -135,22 +139,7 @@ def main(argv):
         if fixed_w % 2 == 0:
             fixed_w += 1
         
-        result_grid_gen = len(result_grid)
-        result_grid_w = len(result_grid[0])
-        for i in range(result_grid_gen):
-            result_grid_w = len(result_grid[i])
-            if result_grid_w > fixed_w:
-                removes = int((result_grid_w - fixed_w)/2)
-                for j in range(removes):
-                    result_grid[i].pop()
-                    result_grid[i].popleft()
-            else:
-                adds = int((fixed_w - result_grid_w)/2)
-                for j in range(adds):
-                    left_ext = result_grid[i][0]
-                    right_ext = result_grid[i][-1]
-                    result_grid[i].append(left_ext)
-                    result_grid[i].appendleft(right_ext)
+        fix_width(result_grid, fixed_w)
     try:                
         to_image(result_grid, save_image)
     except ImportError:
@@ -161,6 +150,29 @@ def main(argv):
         print(save_image)
         return
     
+def fix_width(grid, width):
+    if width % 2 == 0:
+        width += 1
+        
+    result_grid_gen = len(grid)
+    result_grid_w = len(grid[0])
+    for i in range(result_grid_gen):
+        result_grid_w = len(grid[i])
+        if result_grid_w > width:
+            removes = int((result_grid_w - width)/2)
+            for j in range(removes):
+                grid[i].pop()
+                grid[i].popleft()
+            else:
+                adds = int((width - result_grid_w)/2)
+                for j in range(adds):
+                    left_ext = grid[i][0]
+                    right_ext = grid[i][-1]
+                    grid[i].append(left_ext)
+                    grid[i].appendleft(right_ext)
+    return grid
+
+
 def to_image(grid, path):
     from PIL import Image
     alwidth = len(grid[-1])
