@@ -40,5 +40,20 @@ in your command window.
 
 Use the `-h` flag to bring up these instructions.
 
+## Example
+The src folder contains a python script (example.py) that will generate a random rule from a random initial configuration. The script demonstrates how to properly call the functions from this module. The examples folder contains rules that were generated through the following terminal commands:
+
+```rulegenerator.py -i 010 -r 18 -g 1000 -o ./examples/rule18.png```
+![rule 18](/src/examples/rule18.png)
+
+```rulegenerator.py -i 010 -r 137 -g 1000 -o ./examples/rule137_nowrap.png```
+![rule 137 no wrap](/src/examples/rule137_nowrap.png)
+
+```rulegenerator.py -i 010 -r 137 -g 1000 -o ./examples/rule137_fixedwidth.png --fixedwidth 1001```
+![rule 137 fixed width](/src/examples/rule137_fixedwidth.png)
+
+```rulegenerator.py -i 010 -r 137 -g 1000 -o ./examples/rule137_wrapped.png --wrapped 1001```
+![rule 137 wrapped](/src/examples/rule137_wrapped.png)
+
 ## Requirements
 Python 3 and [Pillow](https://github.com/python-pillow/Pillow) (Pillow only required for the command line and `to_image` features).
